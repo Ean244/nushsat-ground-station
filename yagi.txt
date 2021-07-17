@@ -1,0 +1,56 @@
+VK5DJ's YAGI CALCULATOR
+
+Yagi design frequency =437.10 MHz
+Wavelength =686 mm
+Parasitic elements fastened to a non-metallic or separated from boom
+Folded dipole mounted same as directors and reflector
+Director/reflector diam =8 mm
+Radiator diam =8 mm
+
+REFLECTOR
+332.2 mm long at boom position = 30 mm  (IT = 158.5 mm)
+
+RADIATOR
+Single dipole 318.5 mm tip to tip, spaced 137 mm from reflector at boom posn 167 mm (IT = 152.0 mm)
+Folded dipole 324.9 mm tip to tip, spaced 137 mm from reflector at boom posn 167 mm (IT = 155.0 mm)
+
+DIRECTORS
+Dir	Length	Spaced	Boom position	IT	Gain	Gain
+(no.)	(mm)	(mm)	(mm)		(mm)	(dBd)	(dBi)
+1	289.1	51.4	218.6		137.0	4.8	6.9
+2	285.3	123.5	342.1		135.0	6.5	8.6
+3	281.8	147.5	489.5		133.5	7.8	9.9
+4	278.6	171.5	661.0		132.0	8.9	11.0
+5	275.6	192.0	853.0		130.5	9.8	11.9
+
+COMMENTS
+The abbreviation "IT" means "Insert To", it is the construction distance from the element tip to the edge of the boom for through boom mounting
+
+Spacings measured centre to centre from previous element
+Tolerance for element lengths is +/- 2 mm
+
+Boom position is the mounting point for each element as measured from the rear of the boom and includes the 30 mm overhang.The total boom length is 883 mm including two overhangs of 30 mm
+
+The beam's estimated 3dB beamwidth is 52 deg
+
+A half wave 4:1 balun uses 0.66 velocity factor RG-8 (foam PE)  and is 226 mm long plus leads
+FOLDED DIPOLE CONSTRUCTION
+Measurements are taken from the inside of bends
+Folded dipole length measured tip to tip = 325mm
+Total rod length =680mm
+Centre of rod=340mm
+Distance BC=CD=145mm
+Distance HI=GF=140mm
+Distance HA=GE=167mm
+Distance HB=GD=195mm
+Distance HC=GC=340mm
+Gap at HG=10mm
+Bend diameter BI=DF=35mm
+
+If the folded dipole is considered as a flat plane (see ARRL Antenna Handbook) then its resonant frequency is less than the flat plane algorithm's range of 10:1
+
+MATERIALS GUIDE for purchase. Allow extra, do NOT use these figures for cutting
+NO allowance for saw cuts or purchased lengths resulting in waste
+1) Length used by directors and reflector 1743mm of round 8mm rod
+2) Length used by single dipole 319mm or folded dipole 680mm of round 8mm rod
+3) Length used for boom 883mm (allows for 30mm each end) round stock 15mm diameter
