@@ -39,10 +39,10 @@
 #include <AccelStepper.h>
 #include <Wire.h>
 
-#include "Z:\Desktop\school\_satellite\nushsat-ground-station-master-3\Rotator Controller\libraries\globals.h"
-#include "Z:\Desktop\school\_satellite\nushsat-ground-station-master-3\Rotator Controller\libraries\easycomm.h"
-#include "Z:\Desktop\school\_satellite\nushsat-ground-station-master-3\Rotator Controller\libraries\rotator_pins.h"
-#include "Z:\Desktop\school\_satellite\nushsat-ground-station-master-3\Rotator Controller\libraries\endstop.h"
+#include "REPLACETHISPATH\Rotator Controller\libraries\globals.h"
+#include "REPLACETHISPATH\Rotator Controller\libraries\easycomm.h"
+#include "REPLACETHISPATH\Rotator Controller\libraries\rotator_pins.h"
+#include "REPLACETHISPATH\Rotator Controller\libraries\endstop.h"
 
 
 uint32_t t_run = 0; // run time of uC
