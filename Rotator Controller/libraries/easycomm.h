@@ -13,7 +13,7 @@
 #include <Arduino.h>
 #include <WString.h>
 #include <avr/wdt.h>
-#include "rs485.h"
+//#include "rs485.h"
 #include "rotator_pins.h"
 #include "globals.h"
 
@@ -21,7 +21,7 @@
 #define BUFFER_SIZE   256   ///< Set the size of serial buffer
 #define BAUDRATE      19200 ///< Set the Baudrate of easycomm 3 protocol
 
-rs485 rs485(RS485_DIR, RS485_TX_TIME);
+//rs485 rs485(RS485_DIR, RS485_TX_TIME);
 
 /**************************************************************************/
 /*!
@@ -37,7 +37,8 @@ public:
     */
     /**************************************************************************/
     void easycomm_init() {
-        rs485.begin(BAUDRATE);
+       // rs485.begin(BAUDRATE);
+	    Serial.begin(9600);
     }
 
     /**************************************************************************/
@@ -55,8 +56,8 @@ public:
         String str1, str2, str3, str4, str5, str6;
 
         // Read from serial
-        while (rs485.available() > 0) {
-            incomingByte = rs485.read();
+        while (Serial.available() > 0) {
+            incomingByte = Serial.read();
 
             // Read new data, '\n' means new pacakage
             if (incomingByte == '\n' || incomingByte == '\r') {
@@ -70,7 +71,7 @@ public:
                         str3 = String(" EL");
                         str4 = String(control_el.input, 1);
                         str5 = String("\n");
-                        rs485.print(str1 + str2 + str3 + str4 + str5);
+                        Serial.print(str1 + str2 + str3 + str4 + str5);
                     } else {
                         // Get the absolute position in deg for azimuth
                         rotator.control_mode = position;
@@ -140,7 +141,7 @@ public:
                     str3 = String(" EL");
                     str4 = String(control_el.input, 1);
                     str5 = String("\n");
-                    rs485.print(str1 + str2 + str3 + str4 + str5);
+                    Serial.print(str1 + str2 + str3 + str4 + str5);
                     control_az.setpoint = control_az.input;
                     control_el.setpoint = control_el.input;
                 } else if (buffer[0] == 'R' && buffer[1] == 'E' &&
@@ -152,7 +153,7 @@ public:
                     str3 = String(" EL");
                     str4 = String(control_el.input, 1);
                     str5 = String("\n");
-                    rs485.print(str1 + str2 + str3 + str4 + str5);
+                    Serial.print(str1 + str2 + str3 + str4 + str5);
                     rotator.homing_flag = false;
                 } else if (buffer[0] == 'P' && buffer[1] == 'A' &&
                            buffer[2] == 'R' && buffer[3] == 'K' ) {
@@ -163,7 +164,7 @@ public:
                     str3 = String(" EL");
                     str4 = String(control_el.input, 1);
                     str5 = String("\n");
-                    rs485.print(str1 + str2 + str3 + str4 + str5);
+                    Serial.print(str1 + str2 + str3 + str4 + str5);
                     control_az.setpoint = rotator.park_az;
                     control_el.setpoint = rotator.park_el;
                 } else if (buffer[0] == 'V' && buffer[1] == 'E') {
@@ -171,82 +172,82 @@ public:
                     str1 = String("VE");
                     str2 = String("SatNOGS-v2.2");
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '0') {
                     // Get the inside temperature
                     str1 = String("IP0,");
                     str2 = String(rotator.inside_temperature, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '1') {
                     // Get the status of end-stop, azimuth
                     str1 = String("IP1,");
                     str2 = String(rotator.switch_az, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '2') {
                     // Get the status of end-stop, elevation
                     str1 = String("IP2,");
                     str2 = String(rotator.switch_el, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '3') {
                     // Get the current position of azimuth in deg
                     str1 = String("IP3,");
                     str2 = String(control_az.input, 2);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '4') {
                     // Get the current position of elevation in deg
                     str1 = String("IP4,");
                     str2 = String(control_el.input, 2);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '5') {
                     // Get the load of azimuth, in range of 0-1023
                     str1 = String("IP5,");
                     str2 = String(control_az.load, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '6') {
                     // Get the load of elevation, in range of 0-1023
                     str1 = String("IP6,");
                     str2 = String(control_el.load, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '7') {
                     // Get the speed of azimuth in deg/s
                     str1 = String("IP7,");
                     str2 = String(control_az.speed, 2);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'I' && buffer[1] == 'P' &&
                            buffer[2] == '8') {
                     // Get the speed of elevation in deg/s
                     str1 = String("IP8,");
                     str2 = String(control_el.speed, 2);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'G' && buffer[1] == 'S') {
                     // Get the status of rotator
                     str1 = String("GS");
                     str2 = String(rotator.rotator_status, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if (buffer[0] == 'G' && buffer[1] == 'E') {
                     // Get the error of rotator
                     str1 = String("GE");
                     str2 = String(rotator.rotator_error, DEC);
                     str3 = String("\n");
-                    rs485.print(str1 + str2 + str3);
+                    Serial.print(str1 + str2 + str3);
                 } else if(buffer[0] == 'C' && buffer[1] == 'R') {
                     // Get Configuration of rotator
                     if (buffer[3] == '1') {
@@ -254,55 +255,55 @@ public:
                         str1 = String("1,");
                         str2 = String(control_az.p, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '2') {
                         // Get Ki Azimuth gain
                         str1 = String("2,");
                          str2 = String(control_az.i, 2);
                          str3 = String("\n");
-                         rs485.print(str1 + str2 + str3);
+                         Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '3') {
                         // Get Kd Azimuth gain
                         str1 = String("3,");
                         str2 = String(control_az.d, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '4') {
                         // Get Kp Elevation gain
                         str1 = String("4,");
                          str2 = String(control_el.p, 2);
                          str3 = String("\n");
-                         rs485.print(str1 + str2 + str3);
+                         Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '5') {
                         // Get Ki Elevation gain
                         str1 = String("5,");
                         str2 = String(control_el.i, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '6') {
                         // Get Kd Elevation gain
                         str1 = String("6,");
                         str2 = String(control_el.d, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '7') {
                         // Get Azimuth park position
                         str1 = String("7,");
                         str2 = String(rotator.park_az, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '8') {
                         // Get Elevation park position
                         str1 = String("8,");
                         str2 = String(rotator.park_el, 2);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     } else if (buffer[3] == '9') {
                         // Get control mode
                         str1 = String("9,");
                         str2 = String(rotator.control_mode);
                         str3 = String("\n");
-                        rs485.print(str1 + str2 + str3);
+                        Serial.print(str1 + str2 + str3);
                     }
                 } else if (buffer[0] == 'C' && buffer[1] == 'W') {
                     // Set Config
@@ -375,7 +376,7 @@ public:
                 }
                 // Reset the buffer an clean the serial buffer
                 BufferCnt = 0;
-                rs485.flush();
+                Serial.flush();
             } else {
                 // Fill the buffer with incoming data
                 buffer[BufferCnt] = incomingByte;
